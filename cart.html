@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keranjang Belanja — DellStore</title>
+<meta name="description" content="Cek kembali smartphone pilihan kamu sebelum lanjut ke checkout di DellStore.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="navbar">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 28 28"><circle cx="14" cy="14" r="12"/><circle class="core" cx="14" cy="14" r="3.4"/></svg>
+      DellStore
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="products.html">Produk</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="contact.html">Kontak</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="cart.html" class="cart-link" aria-label="Keranjang belanja">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge">0</span>
+      </a>
+      <a href="contact.html" class="btn btn-ghost">Hubungi Kami</a>
+      <a href="products.html" class="btn btn-primary">Belanja Sekarang</a>
+    </div>
+    <button class="nav-toggle" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-panel">
+    <a href="index.html">Beranda</a>
+    <a href="products.html">Produk</a>
+    <a href="about.html">Tentang Kami</a>
+    <a href="contact.html">Kontak</a>
+    <a href="cart.html">Keranjang (<span class="cart-badge-inline">0</span>)</a>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-top:64px;">
+    <div class="container">
+      <span class="eyebrow">Keranjang</span>
+      <h1 style="margin-bottom:8px;">Keranjang Belanja</h1>
+      <p class="muted" style="margin-bottom:40px;">Cek lagi barang kamu sebelum lanjut ke checkout.</p>
+
+      <div id="cart-empty" class="card" style="text-align:center; padding:60px 20px; display:none;">
+        <p style="font-size:1.1rem; margin-bottom:20px;">Keranjang kamu masih kosong.</p>
+        <a href="products.html" class="btn btn-primary">Mulai Belanja</a>
+      </div>
+
+      <div id="cart-content" class="cart-layout">
+        <div class="cart-items" id="cart-items"></div>
+        <aside class="cart-summary card">
+          <h3 style="margin-bottom:20px;">Ringkasan Belanja</h3>
+          <div class="summary-row"><span>Subtotal</span><span id="cart-subtotal">Rp 0</span></div>
+          <div class="summary-row"><span>Ongkos Kirim</span><span>Gratis</span></div>
+          <div class="summary-row summary-total"><span>Total</span><span id="cart-total">Rp 0</span></div>
+          <a href="checkout.html" class="btn btn-primary btn-buy" style="margin-top:20px;">Lanjutkan ke Checkout</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="brand" style="margin-bottom:14px; display:flex;">
+          <svg class="brand-mark" viewBox="0 0 28 28"><circle cx="14" cy="14" r="12"/><circle class="core" cx="14" cy="14" r="3.4"/></svg>
+          DellStore
+        </a>
+        <p>Toko smartphone resmi dengan garansi jelas dan layanan purna jual yang bisa diandalkan.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="products.html">Produk</a></li>
+          <li><a href="about.html">Tentang Kami</a></li>
+          <li><a href="contact.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kategori</h4>
+        <ul>
+          <li><a href="products.html">Flagship</a></li>
+          <li><a href="products.html">Mid-range</a></li>
+          <li><a href="products.html">Budget</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li>Depok, Jawa Barat</li>
+          <li>+62 812-3456-7890</li>
+          <li>hello@dellstore.id</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 DellStore. Dibuat untuk tugas UI Design.</span>
+      <span>Instagram · TikTok · WhatsApp</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  function render() {
+    const cart = dsGetCart();
+    const emptyBox = document.getElementById('cart-empty');
+    const content = document.getElementById('cart-content');
+    const list = document.getElementById('cart-items');
+
+    if (cart.length === 0) {
+      emptyBox.style.display = 'block';
+      content.style.display = 'none';
+      return;
+    }
+    emptyBox.style.display = 'none';
+    content.style.display = 'grid';
+
+    list.innerHTML = cart.map(item => `
+      <div class="card cart-item" data-row="${item.id}">
+        <img class="cart-item-img" src="${item.image}" alt="${item.name}" onerror="this.style.visibility='hidden'">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${dsFormatRupiah(item.price)}</div>
+        </div>
+        <div class="cart-item-right">
+          <div class="qty-control">
+            <button type="button" data-action="dec" data-id="${item.id}">−</button>
+            <span>${item.qty}</span>
+            <button type="button" data-action="inc" data-id="${item.id}">+</button>
+          </div>
+          <button type="button" class="cart-item-remove" data-action="remove" data-id="${item.id}">Hapus</button>
+        </div>
+      </div>
+    `).join('');
+
+    document.getElementById('cart-subtotal').textContent = dsFormatRupiah(dsCartTotal());
+    document.getElementById('cart-total').textContent = dsFormatRupiah(dsCartTotal());
+  }
+
+  document.getElementById('cart-items').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+    const id = btn.getAttribute('data-id');
+    const action = btn.getAttribute('data-action');
+    const cart = dsGetCart();
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+
+    if (action === 'inc') dsUpdateQty(id, item.qty + 1);
+    if (action === 'dec') {
+      if (item.qty <= 1) { dsRemoveFromCart(id); } else { dsUpdateQty(id, item.qty - 1); }
+    }
+    if (action === 'remove') dsRemoveFromCart(id);
+    render();
+  });
+
+  render();
+});
+</script>
+</body>
+</html>
